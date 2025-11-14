@@ -3,6 +3,7 @@ package com.konstl.dormitories.agreement.dto;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -15,5 +16,5 @@ public class UpdateAgreementRequest {
 
     private LocalDate evictionDate;
 
-    private Double cost;
+    private BigDecimal cost;
 }

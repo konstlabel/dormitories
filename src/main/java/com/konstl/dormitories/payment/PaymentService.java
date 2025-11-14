@@ -3,25 +3,24 @@ package com.konstl.dormitories.payment;
 import com.konstl.dormitories.payment.dto.CreatePaymentRequest;
 import com.konstl.dormitories.payment.dto.PaymentResponse;
 import com.konstl.dormitories.payment.dto.UpdatePaymentRequest;
-import com.konstl.dormitories.resident.Resident;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.konstl.dormitories.utils.PageResponse;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public interface PaymentService {
 
     PaymentResponse findById(Long id);
 
-    Page<PaymentResponse> findByDate(Timestamp date, Pageable pageable);
+    PageResponse<PaymentResponse> findByDate(Timestamp date, int page, int size);
 
-    Page<PaymentResponse> findByAmount(Double amount, Pageable pageable);
+    PageResponse<PaymentResponse> findByAmount(BigDecimal amount, int page, int size);
 
-    Page<PaymentResponse> findByPeriod(Integer period, Pageable pageable);
+    PageResponse<PaymentResponse> findByPeriod(Integer period, int page, int size);
 
-    Page<PaymentResponse> findByResident(Resident resident, Pageable pageable);
+    PageResponse<PaymentResponse> findByResidentId(Long residentId, int page, int size);
 
-    Page<PaymentResponse> findByResidentAndPeriod(Resident resident, Integer period, Pageable pageable);
+    PageResponse<PaymentResponse> findByResidentIdAndPeriod(Long residentId, Integer period, int page, int size);
 
     PaymentResponse create(CreatePaymentRequest createRequest);
 

@@ -10,7 +10,6 @@ public class CreateVisitorRequest {
     @NotBlank
     private String firstName;
 
-    @NotBlank
     private String middleName;
 
     @NotBlank

@@ -5,8 +5,7 @@ import com.konstl.dormitories.audit.UserDateAuditDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -15,11 +14,11 @@ public class VisitResponse extends UserDateAuditDto {
 
     private Long id;
 
-    private Date date;
+    private LocalDate date;
 
-    private Time startTime;
+    private LocalDate startTime;
 
-    private Time endTime;
+    private LocalDate endTime;
 
     private Long residentId;
 

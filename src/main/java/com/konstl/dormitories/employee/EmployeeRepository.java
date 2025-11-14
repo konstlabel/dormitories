@@ -15,60 +15,60 @@ import java.util.Optional;
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Query("""
-            Select e from Employees e
-            Where LOWER(e.first_name) LIKE LOWER(CONCAT('%', :first_name, '%'))
+            Select e from Employee e
+            Where LOWER(e.firstName) LIKE LOWER(CONCAT('%', :firstName, '%'))
             """)
-    Page<Employee> findByFistName(@Param("first_name") String firstName, Pageable pageable);
+    Page<Employee> findByFirstName(@Param("firstName") String firstName, Pageable pageable);
 
 
     @Query("""
-            Select e from Employees e
-            Where LOWER(e.middle_name) LIKE LOWER(CONCAT('%', :middle_name, '%'))
+            Select e from Employee e
+            Where LOWER(e.middleName) LIKE LOWER(CONCAT('%', :middleName, '%'))
             """)
-    Page<Employee> findByMiddleName(@Param("middle_name") String middleName, Pageable pageable);
+    Page<Employee> findByMiddleName(@Param("middleName") String middleName, Pageable pageable);
 
     @Query("""
-            Select e from Employees e
-            Where LOWER(e.last_name) LIKE LOWER(CONCAT('%', :last_name, '%'))
+            Select e from Employee e
+            Where LOWER(e.lastName) LIKE LOWER(CONCAT('%', :lastName, '%'))
             """)
-    Page<Employee> findByLastName(@Param("last_name") String lastName, Pageable pageable);
+    Page<Employee> findByLastName(@Param("lastName") String lastName, Pageable pageable);
 
     @Query("""
-            Select e from Employees e
-            Where LOWER(e.first_name) LIKE LOWER(CONCAT('%', :first_name, '%'))
-            AND LOWER(e.middle_name) LIKE LOWER(CONCAT('%', :middle_name, '%'))
+            Select e from Employee e
+            Where LOWER(e.firstName) LIKE LOWER(CONCAT('%', :firstName, '%'))
+            AND LOWER(e.middleName) LIKE LOWER(CONCAT('%', :middleName, '%'))
             """)
-    Page<Employee> findByFirstNameAndMiddleName(@Param("first_name") String firstName,
-                                               @Param("middle_name") String middleName,
+    Page<Employee> findByFirstNameAndMiddleName(@Param("firstName") String firstName,
+                                               @Param("middleName") String middleName,
                                                Pageable pageable);
 
     @Query("""
-            Select e from Employees e
-            Where LOWER(e.first_name) LIKE LOWER(CONCAT('%', :first_name, '%'))
-            AND LOWER(e.last_name) LIKE LOWER(CONCAT('%', :last_name, '%'))
+            Select e from Employee e
+            Where LOWER(e.firstName) LIKE LOWER(CONCAT('%', :firstName, '%'))
+            AND LOWER(e.lastName) LIKE LOWER(CONCAT('%', :lastName, '%'))
             """)
-    Page<Employee> findByFirstNameAndLastName(@Param("first_name") String firstName,
-                                             @Param("last_name") String lastName,
+    Page<Employee> findByFirstNameAndLastName(@Param("firstName") String firstName,
+                                             @Param("lastName") String lastName,
                                              Pageable pageable);
 
     @Query("""
-            Select e from Employees e
-            Where LOWER(e.middle_name) LIKE LOWER(CONCAT('%', :middle_name, '%'))
-            AND LOWER(e.last_name) LIKE LOWER(CONCAT('%', :last_name, '%'))
+            Select e from Employee e
+            Where LOWER(e.middleName) LIKE LOWER(CONCAT('%', :middleName, '%'))
+            AND LOWER(e.lastName) LIKE LOWER(CONCAT('%', :lastName, '%'))
             """)
-    Page<Employee> findByMiddleNameAndLastName(@Param("middle_name") String middleName,
-                                              @Param("last_name") String lastName,
+    Page<Employee> findByMiddleNameAndLastName(@Param("middleName") String middleName,
+                                              @Param("lastName") String lastName,
                                               Pageable pageable);
 
     @Query("""
-            Select e from Employees e
-            Where LOWER(e.first_name) LIKE LOWER(CONCAT('%', :first_name, '%'))
-            OR LOWER(e.middle_name) LIKE LOWER(CONCAT('%', :middle_name, '%'))
-            OR LOWER(e._name) LIKE LOWER(CONCAT('%', :last_name, '%'))
+            Select e from Employee e
+            Where LOWER(e.firstName) LIKE LOWER(CONCAT('%', :firstName, '%'))
+            AND LOWER(e.middleName) LIKE LOWER(CONCAT('%', :middleName, '%'))
+            AND LOWER(e.lastName) LIKE LOWER(CONCAT('%', :lastName, '%'))
             """)
-    Page<Employee> findByFullName(@Param("first_name") String firstName,
-                                 @Param("middle_name") String middleName,
-                                 @Param("last_name") String lastName,
+    Page<Employee> findByFullName(@Param("firstName") String firstName,
+                                 @Param("middleName") String middleName,
+                                 @Param("lastName") String lastName,
                                  Pageable pageable);
 
     Optional<Employee> findByPhone(String phone);

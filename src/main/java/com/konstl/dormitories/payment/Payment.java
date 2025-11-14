@@ -1,25 +1,21 @@
 package com.konstl.dormitories.payment;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.konstl.dormitories.audit.UserDateAudit;
 import com.konstl.dormitories.resident.Resident;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.time.Month;
 
 @Entity
 @Table(name = "Payments")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class Payment extends UserDateAudit {
 
     @Serial
@@ -34,11 +30,11 @@ public class Payment extends UserDateAudit {
     private Timestamp date;
 
     @Column(name = "amount", nullable = false)
-    private Double amount;
+    private BigDecimal amount;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "period", nullable = false)
-    private Month period;
+    private Integer period;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "resident_id", referencedColumnName = "resident_id", nullable = false)

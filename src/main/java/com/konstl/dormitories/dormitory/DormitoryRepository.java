@@ -7,19 +7,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 public interface DormitoryRepository extends JpaRepository<Dormitory, Long> {
 
     @Query("""
-            Select d from Dormitories d
+            Select d from Dormitory d
             Where LOWER(d.name) LIKE LOWER(CONCAT('%', :name, '%'))
             """)
     Page<Dormitory> findByName(@Param("name")String name, Pageable pageable);
 
     @Query("""
-            Select d from Dormitories d
+            Select d from Dormitory d
             Where LOWER(d.address) LIKE LOWER(CONCAT('%', :address, '%'))
             """)
     Page<Dormitory> findByAddress(@Param("address")String address, Pageable pageable);

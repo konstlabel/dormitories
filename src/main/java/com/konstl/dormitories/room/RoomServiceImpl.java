@@ -1,15 +1,12 @@
 package com.konstl.dormitories.room;
 
 import com.konstl.dormitories.dormitory.DormitoryRepository;
-import com.konstl.dormitories.dormitory.DormitoryServiceImpl;
 import com.konstl.dormitories.room.dto.CreateRoomRequest;
 import com.konstl.dormitories.room.dto.RoomResponse;
 import com.konstl.dormitories.room.dto.UpdateRoomRequest;
-import org.springframework.data.domain.Page;
+import com.konstl.dormitories.utils.PageResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.awt.print.Pageable;
 
 @Service
 @Transactional(readOnly = true)
@@ -26,55 +23,53 @@ public class RoomServiceImpl implements RoomService {
         this.dormitoryRepository = dormitoryRepository;
     }
 
+
     @Override
     public RoomResponse findById(Long id) {
         return null;
     }
 
     @Override
-    public Page<RoomResponse> findByRoomNumber(Integer roomNumber, Pageable pageable) {
+    public PageResponse<RoomResponse> findByRoomNumber(Integer roomNumber, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<RoomResponse> findByFloor(Integer floor, Pageable pageable) {
+    public PageResponse<RoomResponse> findByFloor(Integer floor, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<RoomResponse> findByCapacity(Integer capacity, Pageable pageable) {
+    public PageResponse<RoomResponse> findByCapacity(Integer capacity, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<RoomResponse> findByDormitoryId(Long dormitoryId, Pageable pageable) {
+    public PageResponse<RoomResponse> findByDormitoryId(Long dormitoryId, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<RoomResponse> findByDormitoryIdAndCapacity(Long dormitoryId, Integer capacity, Pageable pageable) {
+    public PageResponse<RoomResponse> findByDormitoryIdAndCapacity(Long dormitoryId, Integer capacity, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<RoomResponse> findByFloorAndCapacity(Integer floor, Integer capacity, Pageable pageable) {
+    public PageResponse<RoomResponse> findByFloorAndCapacity(Integer floor, Integer capacity, int page, int size) {
         return null;
     }
 
     @Override
-    @Transactional(readOnly = false)
     public RoomResponse create(CreateRoomRequest createRequest) {
         return null;
     }
 
     @Override
-    @Transactional(readOnly = false)
     public RoomResponse update(UpdateRoomRequest updateRequest) {
         return null;
     }
 
     @Override
-    @Transactional(readOnly = false)
     public RoomResponse delete(Long id) {
         return null;
     }

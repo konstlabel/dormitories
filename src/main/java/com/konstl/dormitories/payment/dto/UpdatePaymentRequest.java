@@ -3,6 +3,7 @@ package com.konstl.dormitories.payment.dto;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Data
@@ -14,7 +15,7 @@ public class UpdatePaymentRequest {
 
     private Timestamp date;
 
-    private Double amount;
+    private BigDecimal amount;
 
     private Integer period;
 

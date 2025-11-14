@@ -1,43 +1,40 @@
 package com.konstl.dormitories.resident;
 
-import com.konstl.dormitories.agreement.Agreement;
 import com.konstl.dormitories.resident.dto.CreateResidentRequest;
 import com.konstl.dormitories.resident.dto.UpdateResidentRequest;
 import com.konstl.dormitories.resident.dto.ResidentResponse;
-import com.konstl.dormitories.room.Room;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.konstl.dormitories.utils.PageResponse;
 
 public interface ResidentService {
 
     ResidentResponse findById(Long id);
 
-    Page<ResidentResponse> findByFistName(String firstName, Pageable pageable);
+    PageResponse<ResidentResponse> findByFirstName(String firstName, int page, int size);
 
-    Page<ResidentResponse> findByMiddleName(String middleName, Pageable pageable);
+    PageResponse<ResidentResponse> findByMiddleName(String middleName, int page, int size);
 
-    Page<ResidentResponse> findByLastName(String lastName, Pageable pageable);
+    PageResponse<ResidentResponse> findByLastName(String lastName, int page, int size);
 
-    Page<ResidentResponse> findByFirstNameAndMiddleName(String firstName,
+    PageResponse<ResidentResponse> findByFirstNameAndMiddleName(String firstName,
                                                        String middleName,
-                                                       Pageable pageable);
+                                                       int page, int size);
 
-    Page<ResidentResponse> findByFirstNameAndLastName(String firstName,
+    PageResponse<ResidentResponse> findByFirstNameAndLastName(String firstName,
                                                      String lastName,
-                                                     Pageable pageable);
+                                                     int page, int size);
 
-    Page<ResidentResponse> findByMiddleNameAndLastName(String middleName,
+    PageResponse<ResidentResponse> findByMiddleNameAndLastName(String middleName,
                                                       String lastName,
-                                                      Pageable pageable);
+                                                      int page, int size);
 
-    Page<ResidentResponse> findByFullName(String firstName,
+    PageResponse<ResidentResponse> findByFullName(String firstName,
                                          String middleName,
                                          String lastName,
-                                         Pageable pageable);
+                                         int page, int size);
 
-    Page<ResidentResponse> findByRoomId(Long roomId, Pageable pageable);
+    PageResponse<ResidentResponse> findByRoomId(Long roomId, int page, int size);
 
-    Page<ResidentResponse> findByAgreementId(Long agreementId);
+    PageResponse<ResidentResponse> findByAgreementId(Long agreementId, int page, int size);
 
     ResidentResponse create(CreateResidentRequest createRequest);
 

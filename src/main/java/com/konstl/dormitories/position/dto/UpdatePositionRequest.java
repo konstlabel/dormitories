@@ -3,6 +3,8 @@ package com.konstl.dormitories.position.dto;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 public class UpdatePositionRequest {
 
@@ -11,5 +13,5 @@ public class UpdatePositionRequest {
 
     private String name;
 
-    private Double salary;
+    private BigDecimal salary;
 }

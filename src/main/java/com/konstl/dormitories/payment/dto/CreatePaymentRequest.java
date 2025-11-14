@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Data
@@ -13,7 +14,7 @@ public class CreatePaymentRequest {
     private Timestamp date;
 
     @NotNull
-    private Double amount;
+    private BigDecimal amount;
 
     @NotNull
     @Size(min = 1, max = 12)

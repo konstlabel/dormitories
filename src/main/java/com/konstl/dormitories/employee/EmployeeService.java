@@ -9,7 +9,7 @@ public interface EmployeeService {
 
     EmployeeResponse findById(Long id);
 
-    PageResponse<EmployeeResponse> findByFistName(String firstName, int page, int size);
+    PageResponse<EmployeeResponse> findByFirstName(String firstName, int page, int size);
 
     PageResponse<EmployeeResponse> findByMiddleName(String middleName, int page, int size);
 

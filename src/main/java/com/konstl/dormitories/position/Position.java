@@ -1,22 +1,19 @@
 package com.konstl.dormitories.position;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.konstl.dormitories.audit.UserDateAudit;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "Positions")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class Position extends UserDateAudit {
 
     @Serial
@@ -31,5 +28,5 @@ public class Position extends UserDateAudit {
     private String name;
 
     @Column(name = "salary", nullable = false)
-    private Double salary;
+    private BigDecimal salary;
 }

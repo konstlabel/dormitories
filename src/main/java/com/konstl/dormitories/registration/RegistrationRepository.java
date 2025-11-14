@@ -11,7 +11,7 @@ import java.awt.print.Pageable;
 import java.util.Optional;
 
 @Repository
-public interface RegistrationRepository extends JpaRepository<Registration, Long> {
+public interface RegistrationRepository extends JpaRepository<Registration, RegistrationId> {
 
     Page<Registration> findByVisit(Visit visit, Pageable pageable);
 
@@ -19,11 +19,11 @@ public interface RegistrationRepository extends JpaRepository<Registration, Long
 
     Page<Registration> findByEmployee(Employee employee, Pageable pageable);
 
-    Page<Registration> findByVisitAndPayment(Visit visit, Payment payment);
+    Page<Registration> findByVisitAndPayment(Visit visit, Payment payment, Pageable pageable);
 
-    Page<Registration> findByVisitAndEmployee(Visit visit, Employee employee);
+    Page<Registration> findByVisitAndEmployee(Visit visit, Employee employee, Pageable pageable);
 
-    Page<Registration> findByPaymentAndEmployee(Payment payment, Employee employee);
+    Page<Registration> findByPaymentAndEmployee(Payment payment, Employee employee, Pageable pageable);
 
     Optional<Registration> findByVisitAndPaymentAndEmployee(Visit visit, Payment payment, Employee employee);
 }

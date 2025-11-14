@@ -1,7 +1,5 @@
 package com.konstl.dormitories.registration;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.konstl.dormitories.audit.UserDateAudit;
 import com.konstl.dormitories.employee.Employee;
 import com.konstl.dormitories.payment.Payment;
@@ -13,27 +11,31 @@ import java.io.Serial;
 
 @Entity
 @Table(name = "Registration_of_Visits")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class Registration extends UserDateAudit {
 
     @Serial
     private final static long serialVersionUID = 1L;
 
+    @EmbeddedId
+    private RegistrationId id;
+
+    @MapsId("visitId")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "visit_id", referencedColumnName = "visit_id", nullable = false, updatable = false)
+    @JoinColumn(name = "visit_id", referencedColumnName = "visit_id", nullable = false)
     private Visit visit;
 
+    @MapsId("paymentId")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "payment_id", referencedColumnName = "payment_id", nullable = false, updatable = false)
+    @JoinColumn(name = "payment_id", referencedColumnName = "payment_id", nullable = false)
     private Payment payment;
 
+    @MapsId("employeeId")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id", nullable = false, updatable = false)
+    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id", nullable = false)
     private Employee employee;
 }

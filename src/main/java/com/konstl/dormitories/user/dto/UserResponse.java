@@ -1,20 +1,20 @@
-package com.konstl.dormitories.position.dto;
+package com.konstl.dormitories.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.konstl.dormitories.audit.UserDateAuditDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.math.BigDecimal;
-
 @EqualsAndHashCode(callSuper = true)
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PositionResponse extends UserDateAuditDto {
+public class UserResponse extends UserDateAuditDto {
 
-    private Long id;
+    Long id;
 
-    private String name;
+    String username;
 
-    private BigDecimal salary;
+    String email;
+
+    String roleName;
 }

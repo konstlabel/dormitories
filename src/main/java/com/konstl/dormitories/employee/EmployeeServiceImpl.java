@@ -35,7 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public PageResponse<EmployeeResponse> findByFistName(String firstName, int page, int size) {
+    public PageResponse<EmployeeResponse> findByFirstName(String firstName, int page, int size) {
         return null;
     }
 

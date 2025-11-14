@@ -3,9 +3,9 @@ package com.konstl.dormitories.position;
 import com.konstl.dormitories.position.dto.CreatePositionRequest;
 import com.konstl.dormitories.position.dto.PositionResponse;
 import com.konstl.dormitories.position.dto.UpdatePositionRequest;
-import org.springframework.data.domain.Page;
+import com.konstl.dormitories.utils.PageResponse;
 
-import java.awt.print.Pageable;
+import java.math.BigDecimal;
 
 public interface PositionService {
 
@@ -13,13 +13,13 @@ public interface PositionService {
 
     PositionResponse findByName(String name);
 
-    Page<PositionResponse> findBySalary(Double salary, Pageable pageable);
+    PageResponse<PositionResponse> findBySalary(BigDecimal salary, int page, int size);
 
-    Page<Position> findBySalaryGreaterThanEqual(Double salary, Pageable pageable);
+    PageResponse<PositionResponse> findBySalaryGreaterThanEqual(BigDecimal salary, int page, int size);
 
-    Page<Position> findBySalaryLessThanEqual(Double salary, Pageable pageable);
+    PageResponse<PositionResponse> findBySalaryLessThanEqual(BigDecimal salary, int page, int size);
 
-    Page<Position> findBySalaryBetween(Double startSalary, Double endSalary, Pageable pageable);
+    PageResponse<PositionResponse> findBySalaryBetween(BigDecimal startSalary, BigDecimal endSalary, int page, int size);
 
     PositionResponse create(CreatePositionRequest createRequest);
 

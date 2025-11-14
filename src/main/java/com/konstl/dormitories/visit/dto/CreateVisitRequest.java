@@ -3,20 +3,19 @@ package com.konstl.dormitories.visit.dto;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
 
 @Data
 public class CreateVisitRequest {
 
     @NotNull
-    private Date date;
+    private LocalDate date;
 
     @NotNull
-    private Time startTime;
+    private LocalDate startTime;
 
     @NotNull
-    private Time endTime;
+    private LocalDate endTime;
 
     @NotNull
     private Long residentId;

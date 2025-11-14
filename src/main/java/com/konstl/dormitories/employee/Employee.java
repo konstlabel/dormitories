@@ -1,7 +1,5 @@
 package com.konstl.dormitories.employee;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.konstl.dormitories.audit.UserDateAudit;
 import com.konstl.dormitories.dormitory.Dormitory;
 import com.konstl.dormitories.position.Position;
@@ -12,13 +10,11 @@ import java.io.Serial;
 
 @Entity
 @Table(name = "Employees")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class Employee extends UserDateAudit {
 
     @Serial
@@ -32,7 +28,7 @@ public class Employee extends UserDateAudit {
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "middle_name", nullable = false)
+    @Column(name = "middle_name")
     private String middleName;
 
     @Column(name = "last_name", nullable = false)

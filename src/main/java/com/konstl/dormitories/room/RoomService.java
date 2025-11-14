@@ -3,25 +3,23 @@ package com.konstl.dormitories.room;
 import com.konstl.dormitories.room.dto.CreateRoomRequest;
 import com.konstl.dormitories.room.dto.RoomResponse;
 import com.konstl.dormitories.room.dto.UpdateRoomRequest;
-import org.springframework.data.domain.Page;
-
-import java.awt.print.Pageable;
+import com.konstl.dormitories.utils.PageResponse;
 
 public interface RoomService {
 
     RoomResponse findById(Long id);
 
-    Page<RoomResponse> findByRoomNumber(Integer roomNumber, Pageable pageable);
+    PageResponse<RoomResponse> findByRoomNumber(Integer roomNumber, int page, int size);
 
-    Page<RoomResponse> findByFloor(Integer floor, Pageable pageable);
+    PageResponse<RoomResponse> findByFloor(Integer floor, int page, int size);
 
-    Page<RoomResponse> findByCapacity(Integer capacity, Pageable pageable);
+    PageResponse<RoomResponse> findByCapacity(Integer capacity, int page, int size);
 
-    Page<RoomResponse> findByDormitoryId(Long dormitoryId, Pageable pageable);
+    PageResponse<RoomResponse> findByDormitoryId(Long dormitoryId, int page, int size);
 
-    Page<RoomResponse> findByDormitoryIdAndCapacity(Long dormitoryId, Integer capacity, Pageable pageable);
+    PageResponse<RoomResponse> findByDormitoryIdAndCapacity(Long dormitoryId, Integer capacity, int page, int size);
 
-    Page<RoomResponse> findByFloorAndCapacity(Integer floor, Integer capacity, Pageable pageable);
+    PageResponse<RoomResponse> findByFloorAndCapacity(Integer floor, Integer capacity, int page, int size);
 
     RoomResponse create(CreateRoomRequest createRequest);
 

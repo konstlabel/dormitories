@@ -10,7 +10,7 @@ import java.awt.print.Pageable;
 import java.util.Optional;
 
 @Repository
-public interface ServiceRepository extends JpaRepository<Service, Long> {
+public interface ServiceRepository extends JpaRepository<Service, ServiceId> {
 
     Page<Service> findByEmployee(Employee employee, Pageable pageable);
 

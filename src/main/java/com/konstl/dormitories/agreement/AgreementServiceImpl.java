@@ -4,12 +4,10 @@ import com.konstl.dormitories.agreement.dto.AgreementResponse;
 import com.konstl.dormitories.agreement.dto.CreateAgreementRequest;
 import com.konstl.dormitories.agreement.dto.UpdateAgreementRequest;
 import com.konstl.dormitories.utils.PageResponse;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Service
@@ -21,6 +19,7 @@ public class AgreementServiceImpl implements AgreementService {
     private final AgreementRepository agreementRepository;
 
     public AgreementServiceImpl(AgreementRepository agreementRepository) {
+
         this.agreementRepository = agreementRepository;
     }
 
@@ -45,7 +44,7 @@ public class AgreementServiceImpl implements AgreementService {
     }
 
     @Override
-    public PageResponse<AgreementResponse> findByCost(Double cost, int page, int size) {
+    public PageResponse<AgreementResponse> findByCost(BigDecimal cost, int page, int size) {
         return null;
     }
 
@@ -80,17 +79,17 @@ public class AgreementServiceImpl implements AgreementService {
     }
 
     @Override
-    public PageResponse<AgreementResponse> findByCostBetween(Double startCost, Double endCost, int page, int size) {
+    public PageResponse<AgreementResponse> findByCostBetween(BigDecimal startCost, BigDecimal endCost, int page, int size) {
         return null;
     }
 
     @Override
-    public PageResponse<AgreementResponse> findByCostGreaterThanEqual(Double cost, int page, int size) {
+    public PageResponse<AgreementResponse> findByCostGreaterThanEqual(BigDecimal cost, int page, int size) {
         return null;
     }
 
     @Override
-    public PageResponse<AgreementResponse> findByCostLessThanEqual(Double cost, int page, int size) {
+    public PageResponse<AgreementResponse> findByCostLessThanEqual(BigDecimal cost, int page, int size) {
         return null;
     }
 

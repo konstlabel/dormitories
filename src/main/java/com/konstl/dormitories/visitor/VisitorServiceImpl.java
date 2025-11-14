@@ -1,10 +1,9 @@
 package com.konstl.dormitories.visitor;
 
+import com.konstl.dormitories.utils.PageResponse;
 import com.konstl.dormitories.visitor.dto.CreateVisitorRequest;
 import com.konstl.dormitories.visitor.dto.UpdateVisitorRequest;
 import com.konstl.dormitories.visitor.dto.VisitorResponse;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,59 +21,56 @@ public class VisitorServiceImpl implements VisitorService {
     }
 
     @Override
-    public Page<VisitorResponse> findByFistName(String firstName, Pageable pageable) {
+    public PageResponse<VisitorResponse> findByFirstName(String firstName, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<VisitorResponse> findByMiddleName(String middleName, Pageable pageable) {
+    public PageResponse<VisitorResponse> findByMiddleName(String middleName, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<VisitorResponse> findByLastName(String lastName, Pageable pageable) {
+    public PageResponse<VisitorResponse> findByLastName(String lastName, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<VisitorResponse> findByFirstNameAndMiddleName(String firstName, String middleName, Pageable pageable) {
+    public PageResponse<VisitorResponse> findByFirstNameAndMiddleName(String firstName, String middleName, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<VisitorResponse> findByFirstNameAndLastName(String firstName, String lastName, Pageable pageable) {
+    public PageResponse<VisitorResponse> findByFirstNameAndLastName(String firstName, String lastName, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<VisitorResponse> findByMiddleNameAndLastName(String middleName, String lastName, Pageable pageable) {
+    public PageResponse<VisitorResponse> findByMiddleNameAndLastName(String middleName, String lastName, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<VisitorResponse> findByFullName(String firstName, String middleName, String lastName, Pageable pageable) {
+    public PageResponse<VisitorResponse> findByFullName(String firstName, String middleName, String lastName, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<VisitorResponse> findByStatus(Boolean status, Pageable pageable) {
+    public PageResponse<VisitorResponse> findByStatus(Boolean status, int page, int size) {
         return null;
     }
 
     @Override
-    @Transactional(readOnly = false)
     public VisitorResponse create(CreateVisitorRequest createRequest) {
         return null;
     }
 
     @Override
-    @Transactional(readOnly = false)
     public VisitorResponse update(UpdateVisitorRequest updateRequest) {
         return null;
     }
 
     @Override
-    @Transactional(readOnly = false)
     public VisitorResponse delete(Long id) {
         return null;
     }

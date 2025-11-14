@@ -3,11 +3,11 @@ package com.konstl.dormitories.position;
 import com.konstl.dormitories.position.dto.CreatePositionRequest;
 import com.konstl.dormitories.position.dto.PositionResponse;
 import com.konstl.dormitories.position.dto.UpdatePositionRequest;
-import org.springframework.data.domain.Page;
+import com.konstl.dormitories.utils.PageResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.print.Pageable;
+import java.math.BigDecimal;
 
 @Service
 @Transactional(readOnly = true)
@@ -22,6 +22,7 @@ public class PositionServiceImpl implements PositionService {
         this.positionRepository = positionRepository;
     }
 
+
     @Override
     public PositionResponse findById(Long id) {
         return null;
@@ -33,39 +34,36 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
-    public Page<PositionResponse> findBySalary(Double salary, Pageable pageable) {
+    public PageResponse<PositionResponse> findBySalary(BigDecimal salary, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<Position> findBySalaryGreaterThanEqual(Double salary, Pageable pageable) {
+    public PageResponse<PositionResponse> findBySalaryGreaterThanEqual(BigDecimal salary, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<Position> findBySalaryLessThanEqual(Double salary, Pageable pageable) {
+    public PageResponse<PositionResponse> findBySalaryLessThanEqual(BigDecimal salary, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<Position> findBySalaryBetween(Double startSalary, Double endSalary, Pageable pageable) {
+    public PageResponse<PositionResponse> findBySalaryBetween(BigDecimal startSalary, BigDecimal endSalary, int page, int size) {
         return null;
     }
 
     @Override
-    @Transactional(readOnly = false)
     public PositionResponse create(CreatePositionRequest createRequest) {
         return null;
     }
 
     @Override
-    @Transactional(readOnly = false)
     public PositionResponse update(UpdatePositionRequest updateRequest) {
         return null;
     }
 
     @Override
-    @Transactional(readOnly = false)
     public PositionResponse delete(Long id) {
         return null;
     }

@@ -14,7 +14,7 @@ public interface RegistrationService {
 
     PageResponse<RegistrationResponse> findByPaymentId(Long paymentId, int page, int size);
 
-    PageResponse<RegistrationResponse> findByEmployee(Long employeeId, int page, int size);
+    PageResponse<RegistrationResponse> findByEmployeeId(Long employeeId, int page, int size);
 
     PageResponse<RegistrationResponse> findByVisitIdAndPaymentId(Long visitId, Long paymentId, int page, int size);
 
@@ -22,7 +22,7 @@ public interface RegistrationService {
 
     PageResponse<RegistrationResponse> findByPaymentIdAndEmployeeId(Long paymentId, Long employeeId, int page, int size);
 
-    RegistrationResponse findByVisitIdAndPaymentIdAndEmployeeId(Long visitId, Long paymentId, Long employeeId, int page, int size);
+    RegistrationResponse findByVisitIdAndPaymentIdAndEmployeeId(Long visitId, Long paymentId, Long employeeId);
 
     RegistrationResponse create(CreateRegistrationRequest createRequest);
 

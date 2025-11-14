@@ -7,22 +7,23 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.awt.print.Pageable;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Repository
 public interface PositionRepository extends JpaRepository<Position, Long> {
 
     @Query("""
-            Select p from Positions p
+            Select p from Position p
             Where LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%'))
             """)
     Optional<Position> findByName(@Param("name") String name);
 
-    Page<Position> findBySalary(Double salary, Pageable pageable);
+    Page<Position> findBySalary(BigDecimal salary, Pageable pageable);
 
-    Page<Position> findBySalaryGreaterThanEqual(Double salary, Pageable pageable);
+    Page<Position> findBySalaryGreaterThanEqual(BigDecimal salary, Pageable pageable);
 
-    Page<Position> findBySalaryLessThanEqual(Double salary, Pageable pageable);
+    Page<Position> findBySalaryLessThanEqual(BigDecimal salary, Pageable pageable);
 
-    Page<Position> findBySalaryBetween(Double startSalary, Double endSalary, Pageable pageable);
+    Page<Position> findBySalaryBetween(BigDecimal startSalary, BigDecimal endSalary, Pageable pageable);
 }

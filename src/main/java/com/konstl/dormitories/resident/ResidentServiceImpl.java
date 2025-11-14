@@ -5,8 +5,7 @@ import com.konstl.dormitories.resident.dto.CreateResidentRequest;
 import com.konstl.dormitories.resident.dto.ResidentResponse;
 import com.konstl.dormitories.resident.dto.UpdateResidentRequest;
 import com.konstl.dormitories.room.RoomRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.konstl.dormitories.utils.PageResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,64 +34,61 @@ public class ResidentServiceImpl implements ResidentService {
     }
 
     @Override
-    public Page<ResidentResponse> findByFistName(String firstName, Pageable pageable) {
+    public PageResponse<ResidentResponse> findByFirstName(String firstName, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<ResidentResponse> findByMiddleName(String middleName, Pageable pageable) {
+    public PageResponse<ResidentResponse> findByMiddleName(String middleName, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<ResidentResponse> findByLastName(String lastName, Pageable pageable) {
+    public PageResponse<ResidentResponse> findByLastName(String lastName, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<ResidentResponse> findByFirstNameAndMiddleName(String firstName, String middleName, Pageable pageable) {
+    public PageResponse<ResidentResponse> findByFirstNameAndMiddleName(String firstName, String middleName, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<ResidentResponse> findByFirstNameAndLastName(String firstName, String lastName, Pageable pageable) {
+    public PageResponse<ResidentResponse> findByFirstNameAndLastName(String firstName, String lastName, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<ResidentResponse> findByMiddleNameAndLastName(String middleName, String lastName, Pageable pageable) {
+    public PageResponse<ResidentResponse> findByMiddleNameAndLastName(String middleName, String lastName, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<ResidentResponse> findByFullName(String firstName, String middleName, String lastName, Pageable pageable) {
+    public PageResponse<ResidentResponse> findByFullName(String firstName, String middleName, String lastName, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<ResidentResponse> findByRoomId(Long roomId, Pageable pageable) {
+    public PageResponse<ResidentResponse> findByRoomId(Long roomId, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<ResidentResponse> findByAgreementId(Long agreementId) {
+    public PageResponse<ResidentResponse> findByAgreementId(Long agreementId, int page, int size) {
         return null;
     }
 
     @Override
-    @Transactional(readOnly = false)
     public ResidentResponse create(CreateResidentRequest createRequest) {
         return null;
     }
 
     @Override
-    @Transactional(readOnly = false)
     public ResidentResponse update(UpdateResidentRequest updateRequest) {
         return null;
     }
 
     @Override
-    @Transactional(readOnly = false)
     public ResidentResponse delete(Long id) {
         return null;
     }

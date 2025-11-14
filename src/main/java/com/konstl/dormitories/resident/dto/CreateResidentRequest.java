@@ -10,7 +10,6 @@ public class CreateResidentRequest {
     @NotBlank
     private String firstName;
 
-    @NotBlank
     private String middleName;
 
     @NotBlank

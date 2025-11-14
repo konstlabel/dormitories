@@ -5,11 +5,11 @@ import com.konstl.dormitories.payment.dto.PaymentResponse;
 import com.konstl.dormitories.payment.dto.UpdatePaymentRequest;
 import com.konstl.dormitories.resident.Resident;
 import com.konstl.dormitories.resident.ResidentRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.konstl.dormitories.utils.PageResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Service
@@ -28,33 +28,34 @@ public class PaymentServiceImpl implements PaymentService {
         this.residentRepository = residentRepository;
     }
 
+
     @Override
     public PaymentResponse findById(Long id) {
         return null;
     }
 
     @Override
-    public Page<PaymentResponse> findByDate(Timestamp date, Pageable pageable) {
+    public PageResponse<PaymentResponse> findByDate(Timestamp date, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<PaymentResponse> findByAmount(Double amount, Pageable pageable) {
+    public PageResponse<PaymentResponse> findByAmount(BigDecimal amount, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<PaymentResponse> findByPeriod(Integer period, Pageable pageable) {
+    public PageResponse<PaymentResponse> findByPeriod(Integer period, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<PaymentResponse> findByResident(Resident resident, Pageable pageable) {
+    public PageResponse<PaymentResponse> findByResidentId(Long residentId, int page, int size) {
         return null;
     }
 
     @Override
-    public Page<PaymentResponse> findByResidentAndPeriod(Resident resident, Integer period, Pageable pageable) {
+    public PageResponse<PaymentResponse> findByResidentIdAndPeriod(Long residentId, Integer period, int page, int size) {
         return null;
     }
 

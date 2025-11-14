@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Repository
@@ -14,7 +15,7 @@ public interface AgreementRepository extends JpaRepository<Agreement, Long> {
 
     Page<Agreement> findByEvictionDate(LocalDate date, Pageable pageable);
 
-    Page<Agreement> findByCost(Double cost, Pageable pageable);
+    Page<Agreement> findByCost(BigDecimal cost, Pageable pageable);
 
     Page<Agreement> findByMoveInDateGreaterThanEqual(LocalDate date, Pageable pageable);
 
@@ -28,9 +29,9 @@ public interface AgreementRepository extends JpaRepository<Agreement, Long> {
 
     Page<Agreement> findByEvictionDateBetween(LocalDate startDate, LocalDate endDate, Pageable pageable);
 
-    Page<Agreement> findByCostBetween(Double startCost, Double endCost, Pageable pageable);
+    Page<Agreement> findByCostBetween(BigDecimal startCost, BigDecimal endCost, Pageable pageable);
 
-    Page<Agreement> findByCostGreaterThanEqual(Double cost, Pageable pageable);
+    Page<Agreement> findByCostGreaterThanEqual(BigDecimal cost, Pageable pageable);
 
-    Page<Agreement> findByCostLessThanEqual(Double cost, Pageable pageable);
+    Page<Agreement> findByCostLessThanEqual(BigDecimal cost, Pageable pageable);
 }

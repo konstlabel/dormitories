@@ -5,6 +5,7 @@ import com.konstl.dormitories.audit.UserDateAuditDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @EqualsAndHashCode(callSuper = true)
@@ -16,7 +17,7 @@ public class PaymentResponse extends UserDateAuditDto {
 
     private Timestamp date;
 
-    private Double amount;
+    private BigDecimal amount;
 
     private Integer period;
 

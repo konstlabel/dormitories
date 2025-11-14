@@ -4,71 +4,72 @@ import com.konstl.dormitories.agreement.Agreement;
 import com.konstl.dormitories.room.Room;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ResidentRepository {
+public interface ResidentRepository extends JpaRepository<Resident, Long> {
 
     @Query("""
-            Select r from Residents r
-            Where LOWER(r.first_name) LIKE LOWER(CONCAT('%', :first_name, '%'))
+            Select r from Resident r
+            Where LOWER(r.firstName) LIKE LOWER(CONCAT('%', :firstName, '%'))
             """)
-    Page<Resident> findByFistName(@Param("first_name") String firstName, Pageable pageable);
+    Page<Resident> findByFirstName(@Param("firstName") String firstName, Pageable pageable);
 
 
     @Query("""
-            Select r from Residents r
-            Where LOWER(r.middle_name) LIKE LOWER(CONCAT('%', :middle_name, '%'))
+            Select r from Resident r
+            Where LOWER(r.middleName) LIKE LOWER(CONCAT('%', :middleName, '%'))
             """)
-    Page<Resident> findByMiddleName(@Param("middle_name") String middleName, Pageable pageable);
+    Page<Resident> findByMiddleName(@Param("middleName") String middleName, Pageable pageable);
 
     @Query("""
-            Select r from Residents r
-            Where LOWER(r.last_name) LIKE LOWER(CONCAT('%', :last_name, '%'))
+            Select r from Resident r
+            Where LOWER(r.lastName) LIKE LOWER(CONCAT('%', :lastName, '%'))
             """)
-    Page<Resident> findByLastName(@Param("last_name") String lastName, Pageable pageable);
+    Page<Resident> findByLastName(@Param("lastName") String lastName, Pageable pageable);
 
     @Query("""
-            Select r from Residents r
-            Where LOWER(r.first_name) LIKE LOWER(CONCAT('%', :first_name, '%'))
-            AND LOWER(r.middle_name) LIKE LOWER(CONCAT('%', :middle_name, '%'))
+            Select r from Resident r
+            Where LOWER(r.firstName) LIKE LOWER(CONCAT('%', :firstName, '%'))
+            AND LOWER(r.middleName) LIKE LOWER(CONCAT('%', :middleName, '%'))
             """)
-    Page<Resident> findByFirstNameAndMiddleName(@Param("first_name") String firstName,
-                                               @Param("middle_name") String middleName,
+    Page<Resident> findByFirstNameAndMiddleName(@Param("firstName") String firstName,
+                                               @Param("middleName") String middleName,
                                                Pageable pageable);
 
     @Query("""
-            Select r from Residents r
-            Where LOWER(r.first_name) LIKE LOWER(CONCAT('%', :first_name, '%'))
-            AND LOWER(r.last_name) LIKE LOWER(CONCAT('%', :last_name, '%'))
+            Select r from Resident r
+            Where LOWER(r.firstName) LIKE LOWER(CONCAT('%', :firstName, '%'))
+            AND LOWER(r.lastName) LIKE LOWER(CONCAT('%', :lastName, '%'))
             """)
-    Page<Resident> findByFirstNameAndLastName(@Param("first_name") String firstName,
-                                             @Param("last_name") String lastName,
+    Page<Resident> findByFirstNameAndLastName(@Param("firstName") String firstName,
+                                             @Param("lastName") String lastName,
                                              Pageable pageable);
 
     @Query("""
-            Select r from Residents r
-            Where LOWER(r.middle_name) LIKE LOWER(CONCAT('%', :middle_name, '%'))
-            AND LOWER(r.last_name) LIKE LOWER(CONCAT('%', :last_name, '%'))
+            Select r from Resident r
+            Where LOWER(r.middleName) LIKE LOWER(CONCAT('%', :middleName, '%'))
+            AND LOWER(r.lastName) LIKE LOWER(CONCAT('%', :lastName, '%'))
             """)
-    Page<Resident> findByMiddleNameAndLastName(@Param("middle_name") String middleName,
-                                              @Param("last_name") String lastName,
+    Page<Resident> findByMiddleNameAndLastName(@Param("middleName") String middleName,
+                                              @Param("lastName") String lastName,
                                               Pageable pageable);
 
     @Query("""
-            Select r from Residents r
-            Where LOWER(r.first_name) LIKE LOWER(CONCAT('%', :first_name, '%'))
-            OR LOWER(r.middle_name) LIKE LOWER(CONCAT('%', :middle_name, '%'))
-            OR LOWER(r._name) LIKE LOWER(CONCAT('%', :last_name, '%'))
+            Select r from Resident r
+            Where LOWER(r.firstName) LIKE LOWER(CONCAT('%', :firstName, '%'))
+            AND LOWER(r.middleName) LIKE LOWER(CONCAT('%', :middleName, '%'))
+            AND LOWER(r.lastName) LIKE LOWER(CONCAT('%', :lastName, '%'))
             """)
-    Page<Resident> findByFullName(@Param("first_name") String firstName,
-                                 @Param("middle_name") String middleName,
-                                 @Param("last_name") String lastName,
+    Page<Resident> findByFullName(@Param("firstName") String firstName,
+                                 @Param("middleName") String middleName,
+                                 @Param("lastName") String lastName,
                                  Pageable pageable);
 
     Page<Resident> findByRoom(Room room, Pageable pageable);
 
-    Page<Resident> findByAgreement(Agreement agreement);
+    Page<Resident> findByAgreement(Agreement agreement, Pageable pageable);
 }

@@ -3,8 +3,7 @@ package com.konstl.dormitories.visit.dto;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
 
 @Data
 public class UpdateVisitRequest {
@@ -12,11 +11,11 @@ public class UpdateVisitRequest {
     @NotNull
     private Long id;
 
-    private Date date;
+    private LocalDate date;
 
-    private Time startTime;
+    private LocalDate startTime;
 
-    private Time endTime;
+    private LocalDate endTime;
 
     private Long residentId;
 

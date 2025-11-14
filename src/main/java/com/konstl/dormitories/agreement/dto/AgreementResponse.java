@@ -5,6 +5,7 @@ import com.konstl.dormitories.audit.UserDateAuditDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @EqualsAndHashCode(callSuper = true)
@@ -18,5 +19,5 @@ public class AgreementResponse extends UserDateAuditDto {
 
     private LocalDate evictionDate;
 
-    private Double cost;
+    private BigDecimal cost;
 }
