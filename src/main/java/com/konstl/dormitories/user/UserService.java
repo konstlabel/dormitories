@@ -1,5 +1,6 @@
 package com.konstl.dormitories.user;
 
+import com.konstl.dormitories.security.dto.SignUpRequest;
 import com.konstl.dormitories.user.dto.CreateUserRequest;
 import com.konstl.dormitories.user.dto.UpdateUserRequest;
 import com.konstl.dormitories.user.dto.UserResponse;
@@ -18,6 +19,8 @@ public interface UserService {
     Page<UserResponse> findByRoleId(Long role);
 
     UserResponse create(CreateUserRequest createRequest);
+
+    UserResponse create(SignUpRequest signUpRequest);
 
     UserResponse update(UpdateUserRequest updateRequest);
 

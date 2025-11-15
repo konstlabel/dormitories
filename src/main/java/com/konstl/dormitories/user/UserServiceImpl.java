@@ -1,6 +1,7 @@
 package com.konstl.dormitories.user;
 
 import com.konstl.dormitories.role.RoleRepository;
+import com.konstl.dormitories.security.dto.SignUpRequest;
 import com.konstl.dormitories.user.dto.CreateUserRequest;
 import com.konstl.dormitories.user.dto.UpdateUserRequest;
 import com.konstl.dormitories.user.dto.UserResponse;
@@ -48,6 +49,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse create(CreateUserRequest createRequest) {
+        return null;
+    }
+
+    @Override
+    public UserResponse create(SignUpRequest signUpRequest) {
         return null;
     }
 
