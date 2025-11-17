@@ -6,6 +6,7 @@ import com.konstl.dormitories.registration.dto.CreateRegistrationRequest;
 import com.konstl.dormitories.registration.dto.RegistrationResponse;
 import com.konstl.dormitories.utils.PageResponse;
 import com.konstl.dormitories.visit.VisitRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,6 +53,11 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
+    public PageResponse<RegistrationResponse> findByEmployeeId(Long employeeId, int page, int size) {
+        return null;
+    }
+
+    @Override
     public PageResponse<RegistrationResponse> findByEmployee(Long employeeId, int page, int size) {
         return null;
     }
@@ -77,11 +83,13 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN') or hasRole('HEADER')")
     public RegistrationResponse create(CreateRegistrationRequest createRequest) {
         return null;
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN') or hasRole('HEADER')")
     public RegistrationResponse delete(Long id) {
         return null;
     }

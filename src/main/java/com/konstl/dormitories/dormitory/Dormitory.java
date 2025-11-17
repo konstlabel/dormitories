@@ -15,9 +15,7 @@ import java.io.Serial;
 @AllArgsConstructor
 public class Dormitory extends UserDateAudit {
 
-    @Serial
-    private final static long serialVersionUID = 1L;
-
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "dormitory_id", nullable = false, updatable = false, unique = true)

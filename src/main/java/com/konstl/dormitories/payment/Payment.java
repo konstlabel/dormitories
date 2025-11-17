@@ -5,9 +5,8 @@ import com.konstl.dormitories.resident.Resident;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serial;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Payments")
@@ -18,16 +17,14 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class Payment extends UserDateAudit {
 
-    @Serial
-    private final static long serialVersionUID = 1L;
-
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "payment_id", nullable = false, updatable = false, unique = true)
     private Long id;
 
     @Column(name = "date", nullable = false)
-    private Timestamp date;
+    private LocalDateTime date;
 
     @Column(name = "amount", nullable = false)
     private BigDecimal amount;

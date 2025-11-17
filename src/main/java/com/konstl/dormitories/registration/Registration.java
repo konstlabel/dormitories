@@ -7,8 +7,6 @@ import com.konstl.dormitories.visit.Visit;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serial;
-
 @Entity
 @Table(name = "Registration_of_Visits")
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
@@ -17,9 +15,6 @@ import java.io.Serial;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Registration extends UserDateAudit {
-
-    @Serial
-    private final static long serialVersionUID = 1L;
 
     @EmbeddedId
     private RegistrationId id;

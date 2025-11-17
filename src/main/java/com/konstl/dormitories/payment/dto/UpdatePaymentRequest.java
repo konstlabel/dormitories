@@ -1,19 +1,14 @@
 package com.konstl.dormitories.payment.dto;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
 public class UpdatePaymentRequest {
 
-
-    @NotNull
-    private Long id;
-
-    private Timestamp date;
+    private LocalDateTime date;
 
     private BigDecimal amount;
 

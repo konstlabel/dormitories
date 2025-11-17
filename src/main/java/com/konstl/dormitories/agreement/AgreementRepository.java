@@ -1,37 +1,8 @@
 package com.konstl.dormitories.agreement;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
 @Repository
-public interface AgreementRepository extends JpaRepository<Agreement, Long> {
-
-    Page<Agreement> findByMoveInDate(LocalDate date, Pageable pageable);
-
-    Page<Agreement> findByEvictionDate(LocalDate date, Pageable pageable);
-
-    Page<Agreement> findByCost(BigDecimal cost, Pageable pageable);
-
-    Page<Agreement> findByMoveInDateGreaterThanEqual(LocalDate date, Pageable pageable);
-
-    Page<Agreement> findByMoveInDateLessThanEqual(LocalDate date, Pageable pageable);
-
-    Page<Agreement> findByEvictionDateGreaterThanEqual(LocalDate date, Pageable pageable);
-
-    Page<Agreement> findByEvictionDateLessThanEqual(LocalDate date, Pageable pageable);
-
-    Page<Agreement> findByMoveInDateBetween(LocalDate startDate, LocalDate endDate, Pageable pageable);
-
-    Page<Agreement> findByEvictionDateBetween(LocalDate startDate, LocalDate endDate, Pageable pageable);
-
-    Page<Agreement> findByCostBetween(BigDecimal startCost, BigDecimal endCost, Pageable pageable);
-
-    Page<Agreement> findByCostGreaterThanEqual(BigDecimal cost, Pageable pageable);
-
-    Page<Agreement> findByCostLessThanEqual(BigDecimal cost, Pageable pageable);
-}
+public interface AgreementRepository extends JpaRepository<Agreement, Long>, JpaSpecificationExecutor<Agreement> {}

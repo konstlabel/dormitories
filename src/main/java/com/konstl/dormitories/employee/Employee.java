@@ -6,8 +6,6 @@ import com.konstl.dormitories.position.Position;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serial;
-
 @Entity
 @Table(name = "Employees")
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
@@ -17,9 +15,7 @@ import java.io.Serial;
 @AllArgsConstructor
 public class Employee extends UserDateAudit {
 
-    @Serial
-    private final static long serialVersionUID = 1L;
-
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employee_id", nullable = false, updatable = false, unique = true)

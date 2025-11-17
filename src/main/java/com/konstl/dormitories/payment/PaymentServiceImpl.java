@@ -1,16 +1,21 @@
 package com.konstl.dormitories.payment;
 
+import com.konstl.dormitories.exception.resource.ResourceNotFoundException;
 import com.konstl.dormitories.payment.dto.CreatePaymentRequest;
 import com.konstl.dormitories.payment.dto.PaymentResponse;
+import com.konstl.dormitories.payment.dto.PaymentSearchDto;
 import com.konstl.dormitories.payment.dto.UpdatePaymentRequest;
 import com.konstl.dormitories.resident.Resident;
 import com.konstl.dormitories.resident.ResidentRepository;
 import com.konstl.dormitories.utils.PageResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
-import java.sql.Timestamp;
 
 @Service
 @Transactional(readOnly = true)
@@ -20,57 +25,89 @@ public class PaymentServiceImpl implements PaymentService {
 
     private final PaymentRepository paymentRepository;
     private final ResidentRepository residentRepository;
+    private final PaymentMapper paymentMapper;
 
     public PaymentServiceImpl(PaymentRepository paymentRepository,
-                              ResidentRepository residentRepository) {
+                              ResidentRepository residentRepository, PaymentMapper paymentMapper) {
 
         this.paymentRepository = paymentRepository;
         this.residentRepository = residentRepository;
+        this.paymentMapper = paymentMapper;
     }
 
 
     @Override
     public PaymentResponse findById(Long id) {
-        return null;
+
+        Payment payment = paymentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Payment", "id", id));
+
+        return paymentMapper.toResponse(payment);
     }
 
     @Override
-    public PageResponse<PaymentResponse> findByDate(Timestamp date, int page, int size) {
-        return null;
+    public PageResponse<PaymentResponse> findAll(int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+        Page<Payment> result = paymentRepository.findAll(pageable);
+
+        return buildPageResponse(result);
     }
 
     @Override
-    public PageResponse<PaymentResponse> findByAmount(BigDecimal amount, int page, int size) {
-        return null;
-    }
+    public PageResponse<PaymentResponse> search(PaymentSearchDto searchDto, int page, int size) {
 
-    @Override
-    public PageResponse<PaymentResponse> findByPeriod(Integer period, int page, int size) {
-        return null;
-    }
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+        Specification<Payment> spec = PaymentSpecification.withSearch(searchDto);
+        Page<Payment> result = paymentRepository.findAll(spec, pageable);
 
-    @Override
-    public PageResponse<PaymentResponse> findByResidentId(Long residentId, int page, int size) {
-        return null;
-    }
-
-    @Override
-    public PageResponse<PaymentResponse> findByResidentIdAndPeriod(Long residentId, Integer period, int page, int size) {
-        return null;
+        return buildPageResponse(result);
     }
 
     @Override
     public PaymentResponse create(CreatePaymentRequest createRequest) {
-        return null;
+
+        Payment payment = paymentMapper.toEntity(createRequest);
+        payment = paymentRepository.save(payment);
+
+        return paymentMapper.toResponse(payment);
     }
 
     @Override
-    public PaymentResponse update(UpdatePaymentRequest updateRequest) {
-        return null;
+    @PreAuthorize("hasRole('ADMIN') or hasRole('HEADER')")
+    public PaymentResponse update(Long id, UpdatePaymentRequest updateRequest) {
+
+        Resident resident = residentRepository.findById(updateRequest.getResidentId())
+                .orElseThrow(() -> new ResourceNotFoundException("Resident", "id", id));
+
+        Payment payment = paymentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Payment", "id", id));
+
+        paymentMapper.updateEntityFromRequest(updateRequest, payment);
+        payment = paymentRepository.save(payment);
+
+        return paymentMapper.toResponse(payment);
     }
 
     @Override
-    public PaymentResponse delete(Long id) {
-        return null;
+    @PreAuthorize("hasRole('ADMIN') or hasRole('HEADER')")
+    public boolean delete(Long id) {
+
+        if (!paymentRepository.existsById(id))
+            throw new ResourceNotFoundException("Agreement", "id", id);
+        paymentRepository.deleteById(id);
+        return true;
+    }
+
+    private PageResponse<PaymentResponse> buildPageResponse(Page<Payment> result) {
+
+        return PageResponse.<PaymentResponse>builder()
+                .content(paymentMapper.toResponseList(result.getContent()))
+                .page(result.getNumber())
+                .pageSize(result.getSize())
+                .size(result.getTotalElements())
+                .totalPages(result.getTotalPages())
+                .last(result.isLast())
+                .build();
     }
 }

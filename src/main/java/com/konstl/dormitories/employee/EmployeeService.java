@@ -9,28 +9,9 @@ public interface EmployeeService {
 
     EmployeeResponse findById(Long id);
 
-    PageResponse<EmployeeResponse> findByFirstName(String firstName, int page, int size);
+    PageResponse<EmployeeResponse> findAll(int page, int size);
 
-    PageResponse<EmployeeResponse> findByMiddleName(String middleName, int page, int size);
-
-    PageResponse<EmployeeResponse> findByLastName(String lastName, int page, int size);
-
-    PageResponse<EmployeeResponse> findByFirstNameAndMiddleName(String firstName,
-                                                        String middleName,
-                                                        int page, int size);
-
-    PageResponse<EmployeeResponse> findByFirstNameAndLastName(String firstName,
-                                                      String lastName,
-                                                      int page, int size);
-
-    PageResponse<EmployeeResponse> findByMiddleNameAndLastName(String middleName,
-                                                       String lastName,
-                                                       int page, int size);
-
-    PageResponse<EmployeeResponse> findByFullName(String firstName,
-                                          String middleName,
-                                          String lastName,
-                                          int page, int size);
+    PageResponse<EmployeeResponse> findByFullName(String name, int page, int size);
 
     EmployeeResponse findByPhone(String phone);
 
@@ -40,13 +21,11 @@ public interface EmployeeService {
 
     PageResponse<EmployeeResponse> findByPositionId(Long positionId, int page, int size);
 
-    PageResponse<EmployeeResponse> findByDormitoryIdAndPositionId(Long dormitoryId,
-                                                          Long positionId,
-                                                          int page, int size);
+    PageResponse<EmployeeResponse> findByDormitoryIdAndPositionId(Long dormitoryId, Long positionId, int page, int size);
 
     EmployeeResponse create(CreateEmployeeRequest createRequest);
 
-    EmployeeResponse update(UpdateEmployeeRequest updateRequest);
+    EmployeeResponse update(Long id, UpdateEmployeeRequest updateRequest);
 
-    EmployeeResponse delete(Long id);
+    boolean delete(Long id);
 }

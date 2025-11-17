@@ -17,9 +17,7 @@ import java.io.Serial;
 @AllArgsConstructor
 public class Resident extends UserDateAudit {
 
-    @Serial
-    private final static long serialVersionUID = 1L;
-
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "resident_id", nullable = false, updatable = false, unique = true)

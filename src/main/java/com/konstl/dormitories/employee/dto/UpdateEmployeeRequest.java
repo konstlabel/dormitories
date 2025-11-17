@@ -1,13 +1,9 @@
 package com.konstl.dormitories.employee.dto;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class UpdateEmployeeRequest {
-
-    @NotNull
-    private Long id;
 
     private String firstName;
 

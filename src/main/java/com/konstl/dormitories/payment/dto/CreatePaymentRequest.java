@@ -5,13 +5,13 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
 public class CreatePaymentRequest {
 
     @NotNull
-    private Timestamp date;
+    private LocalDateTime date;
 
     @NotNull
     private BigDecimal amount;

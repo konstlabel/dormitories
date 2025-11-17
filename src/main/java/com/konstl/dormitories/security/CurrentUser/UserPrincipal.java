@@ -19,35 +19,35 @@ public class UserPrincipal implements UserDetails {
     private final String username;
     private final String email;
     private final String password;
-    private final GrantedAuthority authority;
+    private final Collection<? extends GrantedAuthority> authorities;
+    private final Long dormitoryId;
 
-    public UserPrincipal(Long id, String username, String email, String password, GrantedAuthority authority) {
+    public UserPrincipal(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities, Long dormitoryId) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.authority = authority;
+        this.authorities = authorities != null ? authorities : Collections.emptyList();
+        this.dormitoryId = dormitoryId;
     }
 
     public static UserPrincipal create(User user) {
-        GrantedAuthority authority = new SimpleGrantedAuthority(
-                user.getRole().getName()
-        );
+
+        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getName().getAuthority());
 
         return new UserPrincipal(
                 user.getId(),
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
-                authority
+                Collections.singletonList(authority),
+                user.getDormitory() != null ? user.getDormitory().getId() : null
         );
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authority == null
-                ? Collections.emptyList()
-                : Collections.singletonList(authority);
+        return authorities;
     }
 
     @Override

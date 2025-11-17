@@ -4,7 +4,6 @@ import com.konstl.dormitories.audit.UserDateAudit;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serial;
 import java.math.BigDecimal;
 
 @Entity
@@ -15,9 +14,6 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Position extends UserDateAudit {
-
-    @Serial
-    private final static long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

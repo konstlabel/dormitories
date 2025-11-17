@@ -11,7 +11,7 @@ public interface PositionService {
 
     PositionResponse findById(Long id);
 
-    PositionResponse findByName(String name);
+    PageResponse<PositionResponse> findByName(String name, int page, int size);
 
     PageResponse<PositionResponse> findBySalary(BigDecimal salary, int page, int size);
 
@@ -23,7 +23,7 @@ public interface PositionService {
 
     PositionResponse create(CreatePositionRequest createRequest);
 
-    PositionResponse update(UpdatePositionRequest updateRequest);
+    PositionResponse update(Long id, UpdatePositionRequest updateRequest);
 
-    PositionResponse delete(Long id);
+    boolean delete(Long id);
 }

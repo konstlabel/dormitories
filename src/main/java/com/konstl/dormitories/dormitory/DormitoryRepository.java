@@ -14,11 +14,11 @@ public interface DormitoryRepository extends JpaRepository<Dormitory, Long> {
             Select d from Dormitory d
             Where LOWER(d.name) LIKE LOWER(CONCAT('%', :name, '%'))
             """)
-    Page<Dormitory> findByName(@Param("name")String name, Pageable pageable);
+    Page<Dormitory> findByNameContainingIgnoreCase(@Param("name")String name, Pageable pageable);
 
     @Query("""
             Select d from Dormitory d
             Where LOWER(d.address) LIKE LOWER(CONCAT('%', :address, '%'))
             """)
-    Page<Dormitory> findByAddress(@Param("address")String address, Pageable pageable);
+    Page<Dormitory> findByAddressContainingIgnoreCase(@Param("address")String address, Pageable pageable);
 }

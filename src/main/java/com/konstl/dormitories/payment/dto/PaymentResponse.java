@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -15,7 +15,7 @@ public class PaymentResponse extends UserDateAuditDto {
 
     private Long id;
 
-    private Timestamp date;
+    private LocalDateTime date;
 
     private BigDecimal amount;
 

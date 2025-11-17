@@ -1,29 +1,22 @@
 package com.konstl.dormitories.registration;
 
-import com.konstl.dormitories.employee.Employee;
-import com.konstl.dormitories.payment.Payment;
-import com.konstl.dormitories.visit.Visit;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-import java.awt.print.Pageable;
-import java.util.Optional;
-
 @Repository
-public interface RegistrationRepository extends JpaRepository<Registration, RegistrationId> {
+public interface RegistrationRepository extends JpaRepository<Registration, RegistrationId>, JpaSpecificationExecutor<Registration> {
 
-    Page<Registration> findByVisit(Visit visit, Pageable pageable);
-
-    Page<Registration> findByPayment(Payment payment, Pageable pageable);
-
-    Page<Registration> findByEmployee(Employee employee, Pageable pageable);
-
-    Page<Registration> findByVisitAndPayment(Visit visit, Payment payment, Pageable pageable);
-
-    Page<Registration> findByVisitAndEmployee(Visit visit, Employee employee, Pageable pageable);
-
-    Page<Registration> findByPaymentAndEmployee(Payment payment, Employee employee, Pageable pageable);
-
-    Optional<Registration> findByVisitAndPaymentAndEmployee(Visit visit, Payment payment, Employee employee);
+    @EntityGraph(attributePaths = {
+            "visit",
+            "payment",
+            "payment.resident",
+            "employee",
+            "employee.dormitory"
+    })
+    Page<Registration> findAll(Specification<Registration> spec, Pageable pageable);
 }

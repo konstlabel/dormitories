@@ -1,9 +1,18 @@
 package com.konstl.dormitories.utils;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class PageResponse<T> {
 
     private List<T> content;
@@ -18,9 +27,8 @@ public class PageResponse<T> {
 
     private boolean last;
 
-    public PageResponse() {}
-
     public PageResponse(List<T> content, int page, int pageSize, long size, int totalPages, boolean last) {
+
         setContent(content);
         this.page = page;
         this.pageSize = pageSize;
@@ -44,5 +52,4 @@ public class PageResponse<T> {
     public boolean isLast() {
         return last;
     }
-
 }

@@ -9,13 +9,15 @@ public interface DormitoryService {
 
     DormitoryResponse findById(Long id);
 
+    PageResponse<DormitoryResponse> findAll(int page, int size);
+
     PageResponse<DormitoryResponse> findByName(String name, int page, int size);
 
     PageResponse<DormitoryResponse> findByAddress(String address, int page, int size);
 
     DormitoryResponse create(CreateDormitoryRequest createRequest);
 
-    DormitoryResponse update(UpdateDormitoryRequest updateRequest);
+    DormitoryResponse update(Long id, UpdateDormitoryRequest updateRequest);
 
-    DormitoryResponse delete(Long id);
+    boolean delete(Long id);
 }

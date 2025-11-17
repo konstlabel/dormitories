@@ -1,9 +1,15 @@
 package com.konstl.dormitories.position;
 
+import com.konstl.dormitories.exception.resource.ResourceNotFoundException;
 import com.konstl.dormitories.position.dto.CreatePositionRequest;
 import com.konstl.dormitories.position.dto.PositionResponse;
 import com.konstl.dormitories.position.dto.UpdatePositionRequest;
 import com.konstl.dormitories.utils.PageResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,55 +22,112 @@ public class PositionServiceImpl implements PositionService {
     private static final String NO_PERM = "You don't have permission to make this operation";
 
     private final PositionRepository positionRepository;
+    private final PositionMapper positionMapper;
 
-    public PositionServiceImpl(PositionRepository positionRepository) {
+    public PositionServiceImpl(PositionRepository positionRepository, PositionMapper positionMapper) {
 
         this.positionRepository = positionRepository;
+        this.positionMapper = positionMapper;
     }
 
 
     @Override
     public PositionResponse findById(Long id) {
-        return null;
+
+        Position position = positionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Position", "id", id));
+
+        return positionMapper.toResponse(position);
     }
 
     @Override
-    public PositionResponse findByName(String name) {
-        return null;
+    public PageResponse<PositionResponse> findByName(String name, int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+        Page<Position> result = positionRepository.findByNameIgnoreCase(name, pageable);
+
+        return buildPageResponse(result);
     }
 
     @Override
     public PageResponse<PositionResponse> findBySalary(BigDecimal salary, int page, int size) {
-        return null;
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+        Page<Position> result = positionRepository.findBySalary(salary, pageable);
+
+        return  buildPageResponse(result);
     }
 
     @Override
     public PageResponse<PositionResponse> findBySalaryGreaterThanEqual(BigDecimal salary, int page, int size) {
-        return null;
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+        Page<Position> result = positionRepository.findBySalaryGreaterThanEqual(salary, pageable);
+
+        return buildPageResponse(result);
     }
 
     @Override
     public PageResponse<PositionResponse> findBySalaryLessThanEqual(BigDecimal salary, int page, int size) {
-        return null;
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+        Page<Position> result = positionRepository.findBySalaryLessThanEqual(salary, pageable);
+
+        return buildPageResponse(result);
     }
 
     @Override
     public PageResponse<PositionResponse> findBySalaryBetween(BigDecimal startSalary, BigDecimal endSalary, int page, int size) {
-        return null;
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+        Page<Position> result = positionRepository.findBySalaryBetween(startSalary, endSalary, pageable);
+
+        return buildPageResponse(result);
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN') or hasRole('HEADER')")
     public PositionResponse create(CreatePositionRequest createRequest) {
-        return null;
+
+        Position position = positionMapper.toEntity(createRequest);
+        position = positionRepository.save(position);
+
+        return positionMapper.toResponse(position);
+
     }
 
     @Override
-    public PositionResponse update(UpdatePositionRequest updateRequest) {
-        return null;
+    @PreAuthorize("hasRole('ADMIN') or hasRole('HEADER')")
+    public PositionResponse update(Long id, UpdatePositionRequest updateRequest) {
+
+        Position position = positionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Position", "id", id));
+
+        positionMapper.updateEntityFromRequest(updateRequest, position);
+        position = positionRepository.save(position);
+
+        return positionMapper.toResponse(position);
     }
 
     @Override
-    public PositionResponse delete(Long id) {
-        return null;
+    @PreAuthorize("hasRole('ADMIN') or hasRole('HEADER')")
+    public boolean delete(Long id) {
+
+        if (!positionRepository.existsById(id))
+            throw new ResourceNotFoundException("Agreement", "id", id);
+        positionRepository.deleteById(id);
+        return true;
+    }
+
+    private PageResponse<PositionResponse> buildPageResponse(Page<Position> result) {
+
+        return PageResponse.<PositionResponse>builder()
+                .content(positionMapper.toResponseList(result.getContent()))
+                .page(result.getNumber())
+                .pageSize(result.getSize())
+                .size(result.getTotalElements())
+                .totalPages(result.getTotalPages())
+                .last(result.isLast())
+                .build();
     }
 }

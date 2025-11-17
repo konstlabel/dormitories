@@ -8,9 +8,6 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 
-import java.io.Serial;
-
-
 @MappedSuperclass
 @JsonIgnoreProperties(
         value = {"created_by", "updated_by"},
@@ -19,9 +16,6 @@ import java.io.Serial;
 @Getter
 @Setter
 public abstract class UserDateAudit extends DateAudit {
-
-    @Serial
-    private final static long serialVersionUID = 1L;
 
     @CreatedBy
     @Column(name = "created_by", nullable = false, updatable = false)
