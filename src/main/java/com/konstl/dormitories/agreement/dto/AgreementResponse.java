@@ -2,14 +2,14 @@ package com.konstl.dormitories.agreement.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.konstl.dormitories.audit.UserDateAuditDto;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AgreementResponse extends UserDateAuditDto {
 

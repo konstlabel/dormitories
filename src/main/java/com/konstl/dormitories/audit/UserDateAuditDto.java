@@ -1,10 +1,10 @@
 package com.konstl.dormitories.audit;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 public abstract class UserDateAuditDto extends AuditDateDto {
 
     private Long createdBy;

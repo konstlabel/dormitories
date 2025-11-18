@@ -2,6 +2,7 @@ package com.konstl.dormitories.employee;
 
 import com.konstl.dormitories.employee.dto.CreateEmployeeRequest;
 import com.konstl.dormitories.employee.dto.EmployeeResponse;
+import com.konstl.dormitories.employee.dto.EmployeeSearchDto;
 import com.konstl.dormitories.employee.dto.UpdateEmployeeRequest;
 import com.konstl.dormitories.utils.PageResponse;
 import jakarta.validation.Valid;
@@ -37,32 +38,12 @@ public class EmployeeController {
         return employeeService.findById(id);
     }
 
-    @GetMapping("/phone/{phone}")
-    public EmployeeResponse findByPhone(@PathVariable String phone) {
+    @GetMapping("/search")
+    public PageResponse<EmployeeResponse> search(@ModelAttribute EmployeeSearchDto searchDto,
+                                                 @RequestParam(defaultValue = "0") @PositiveOrZero int page,
+                                                 @RequestParam(defaultValue = "10") @Positive @Max(100) int size) {
 
-        return employeeService.findByPhone(phone);
-    }
-
-    @GetMapping("/contract/{contract}")
-    public EmployeeResponse findByContractNumber(@PathVariable Long contractNumber) {
-
-        return employeeService.findByContractNumber(contractNumber);
-    }
-
-    @GetMapping("/dormitory/{id}")
-    public PageResponse<EmployeeResponse> findByDormitory(@PathVariable Long dormitoryId,
-                                                          @RequestParam(defaultValue = "0") @PositiveOrZero int page,
-                                                          @RequestParam(defaultValue = "10") @Positive @Max(100) int size) {
-
-        return employeeService.findByDormitoryId(dormitoryId, page, size);
-    }
-
-    @GetMapping("/position/{id}")
-    public PageResponse<EmployeeResponse> findByPosition(@PathVariable Long positionId,
-                                                         @RequestParam(defaultValue = "0") @PositiveOrZero int page,
-                                                         @RequestParam(defaultValue = "10") @Positive @Max(100) int size) {
-
-        return employeeService.findByPositionId(positionId, page, size);
+        return employeeService.search(searchDto, page, size);
     }
 
     @PostMapping

@@ -4,8 +4,6 @@ import com.konstl.dormitories.audit.UserDateAudit;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serial;
-
 @Entity
 @Table(name = "Dormitories")
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)

@@ -2,6 +2,7 @@ package com.konstl.dormitories.dormitory;
 
 import com.konstl.dormitories.dormitory.dto.CreateDormitoryRequest;
 import com.konstl.dormitories.dormitory.dto.DormitoryResponse;
+import com.konstl.dormitories.dormitory.dto.DormitorySearchDto;
 import com.konstl.dormitories.dormitory.dto.UpdateDormitoryRequest;
 import com.konstl.dormitories.utils.PageResponse;
 import jakarta.validation.Valid;
@@ -37,20 +38,12 @@ public class DormitoryController {
         return dormitoryService.findById(id);
     }
 
-    @GetMapping("/search/name")
-    public PageResponse<DormitoryResponse> findByName(@RequestParam String name,
-                                                      @RequestParam(defaultValue = "0") @PositiveOrZero int page,
-                                                      @RequestParam(defaultValue = "10") @Positive @Max(100) int size) {
+    @GetMapping("/search")
+    public PageResponse<DormitoryResponse> search(@ModelAttribute DormitorySearchDto searchDto,
+                                                  @RequestParam(defaultValue = "0") @PositiveOrZero int page,
+                                                  @RequestParam(defaultValue = "10") @Positive @Max(100) int size) {
 
-        return dormitoryService.findByName(name, page, size);
-    }
-
-    @GetMapping("/search/address")
-    public PageResponse<DormitoryResponse> findByAddress(@RequestParam String address,
-                                                         @RequestParam(defaultValue = "0") @PositiveOrZero int page,
-                                                         @RequestParam(defaultValue = "10") @Positive @Max(100) int size) {
-
-        return dormitoryService.findByAddress(address, page, size);
+        return  dormitoryService.search(searchDto, page, size);
     }
 
     @PostMapping
@@ -70,9 +63,8 @@ public class DormitoryController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<DormitoryResponse> delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
 
-        DormitoryResponse deleted = dormitoryService.delete(id);
-        return ResponseEntity.ok(deleted);
+        dormitoryService.delete(id);
     }
 }

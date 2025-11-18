@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UpdateDormitoryRequest {
+public class DormitorySearchDto {
 
     private String name;
 

@@ -4,6 +4,7 @@ import com.konstl.dormitories.dormitory.Dormitory;
 import com.konstl.dormitories.dormitory.DormitoryRepository;
 import com.konstl.dormitories.employee.dto.CreateEmployeeRequest;
 import com.konstl.dormitories.employee.dto.EmployeeResponse;
+import com.konstl.dormitories.employee.dto.EmployeeSearchDto;
 import com.konstl.dormitories.employee.dto.UpdateEmployeeRequest;
 import com.konstl.dormitories.exception.resource.ResourceNotFoundException;
 import com.konstl.dormitories.position.Position;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,67 +60,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public PageResponse<EmployeeResponse> findByFullName(String name, int page, int size) {
+    public PageResponse<EmployeeResponse> search(EmployeeSearchDto searchDto, int page, int size) {
 
+        Specification<Employee> spec = EmployeeSpecification.bySearch(searchDto);
         Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
-        Page<Employee> result = employeeRepository.findByFullNameContainingIgnoreCase(name, pageable);
-
-        return buildPageResponse(result);
-    }
-
-    @Override
-    public EmployeeResponse findByPhone(String phone) {
-
-        Employee employee = employeeRepository.findByPhone(phone)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee", "phone", phone));
-
-        return employeeMapper.toResponse(employee);
-    }
-
-    @Override
-    public EmployeeResponse findByContractNumber(Long contractNumber) {
-
-        Employee employee = employeeRepository.findByContractNumber(contractNumber)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee", "contract number", contractNumber));
-
-        return  employeeMapper.toResponse(employee);
-    }
-
-    @Override
-    public PageResponse<EmployeeResponse> findByDormitoryId(Long dormitoryId, int page, int size) {
-
-        Dormitory dormitory = dormitoryRepository.findById(dormitoryId)
-                .orElseThrow(() -> new ResourceNotFoundException("Dormitory", "id", dormitoryId));
-
-        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
-        Page<Employee> result = employeeRepository.findByDormitory(dormitory, pageable);
-
-        return buildPageResponse(result);
-    }
-
-    @Override
-    public PageResponse<EmployeeResponse> findByPositionId(Long positionId, int page, int size) {
-
-        Position position = positionRepository.findById(positionId)
-                .orElseThrow(() -> new ResourceNotFoundException("Position", "id", positionId));
-
-        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
-        Page<Employee> result = employeeRepository.findByPosition(position, pageable);
-
-        return buildPageResponse(result);
-    }
-
-    @Override
-    public PageResponse<EmployeeResponse> findByDormitoryIdAndPositionId(Long dormitoryId, Long positionId, int page, int size) {
-
-        Dormitory dormitory = dormitoryRepository.findById(dormitoryId)
-                .orElseThrow(() -> new ResourceNotFoundException("Dormitory", "id", dormitoryId));
-
-        Position position = positionRepository.findById(positionId)
-                .orElseThrow(() -> new ResourceNotFoundException("Position", "id", positionId));
-
-        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
-        Page<Employee> result = employeeRepository.findByDormitoryAndPosition(dormitory, position, pageable);
+        Page<Employee> result = employeeRepository.findAll(spec, pageable);
 
         return buildPageResponse(result);
     }
@@ -179,7 +125,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .build();
     }
 
-    /** SpEL: доступ к сотруднику **/
+    /** SpEL: employee access **/
     @SuppressWarnings("unused")
     public boolean canAccess(Long employeeId, UserPrincipal user) {
         return employeeRepository.findById(employeeId)
@@ -190,7 +136,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .orElse(false);
     }
 
-    /** SpEL: доступ к общежитию при создании **/
+    /** SpEL: dormitory header access **/
     @SuppressWarnings("unused")
     public boolean canAccessDormitory(Long dormitoryId, UserPrincipal user) {
         return dormitoryRepository.findById(dormitoryId)

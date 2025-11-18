@@ -3,23 +3,21 @@ package com.konstl.dormitories.position;
 import com.konstl.dormitories.exception.resource.ResourceNotFoundException;
 import com.konstl.dormitories.position.dto.CreatePositionRequest;
 import com.konstl.dormitories.position.dto.PositionResponse;
+import com.konstl.dormitories.position.dto.PositionSearchDto;
 import com.konstl.dormitories.position.dto.UpdatePositionRequest;
 import com.konstl.dormitories.utils.PageResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-
 @Service
 @Transactional(readOnly = true)
 public class PositionServiceImpl implements PositionService {
-
-    private static final String NO_PERM = "You don't have permission to make this operation";
 
     private final PositionRepository positionRepository;
     private final PositionMapper positionMapper;
@@ -30,7 +28,6 @@ public class PositionServiceImpl implements PositionService {
         this.positionMapper = positionMapper;
     }
 
-
     @Override
     public PositionResponse findById(Long id) {
 
@@ -38,6 +35,15 @@ public class PositionServiceImpl implements PositionService {
                 .orElseThrow(() -> new ResourceNotFoundException("Position", "id", id));
 
         return positionMapper.toResponse(position);
+    }
+
+    @Override
+    public PageResponse<PositionResponse> findAll(int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+        Page<Position> result = positionRepository.findAll(pageable);
+
+        return buildPageResponse(result);
     }
 
     @Override
@@ -50,37 +56,11 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
-    public PageResponse<PositionResponse> findBySalary(BigDecimal salary, int page, int size) {
+    public PageResponse<PositionResponse> search(PositionSearchDto searchDto, int page, int size) {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
-        Page<Position> result = positionRepository.findBySalary(salary, pageable);
-
-        return  buildPageResponse(result);
-    }
-
-    @Override
-    public PageResponse<PositionResponse> findBySalaryGreaterThanEqual(BigDecimal salary, int page, int size) {
-
-        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
-        Page<Position> result = positionRepository.findBySalaryGreaterThanEqual(salary, pageable);
-
-        return buildPageResponse(result);
-    }
-
-    @Override
-    public PageResponse<PositionResponse> findBySalaryLessThanEqual(BigDecimal salary, int page, int size) {
-
-        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
-        Page<Position> result = positionRepository.findBySalaryLessThanEqual(salary, pageable);
-
-        return buildPageResponse(result);
-    }
-
-    @Override
-    public PageResponse<PositionResponse> findBySalaryBetween(BigDecimal startSalary, BigDecimal endSalary, int page, int size) {
-
-        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
-        Page<Position> result = positionRepository.findBySalaryBetween(startSalary, endSalary, pageable);
+        Specification<Position> spec = PositionSpecification.withSearch(searchDto);
+        Page<Position> result = positionRepository.findAll(spec, pageable);
 
         return buildPageResponse(result);
     }

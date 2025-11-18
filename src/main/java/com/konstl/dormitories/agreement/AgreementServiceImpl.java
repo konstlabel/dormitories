@@ -5,7 +5,6 @@ import com.konstl.dormitories.agreement.dto.AgreementSearchDto;
 import com.konstl.dormitories.agreement.dto.CreateAgreementRequest;
 import com.konstl.dormitories.agreement.dto.UpdateAgreementRequest;
 import com.konstl.dormitories.exception.resource.ResourceNotFoundException;
-import com.konstl.dormitories.resident.ResidentRepository;
 import com.konstl.dormitories.utils.PageResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,8 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 public class AgreementServiceImpl implements AgreementService {
-
-    private static final String NO_PERM = "You don't have permission to make this operation";
 
     private final AgreementRepository agreementRepository;
     private final AgreementMapper agreementMapper;

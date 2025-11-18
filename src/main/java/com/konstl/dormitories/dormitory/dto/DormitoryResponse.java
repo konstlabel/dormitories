@@ -2,11 +2,11 @@ package com.konstl.dormitories.dormitory.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.konstl.dormitories.audit.UserDateAuditDto;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DormitoryResponse extends UserDateAuditDto {
 

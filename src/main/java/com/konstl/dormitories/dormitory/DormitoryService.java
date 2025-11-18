@@ -2,6 +2,7 @@ package com.konstl.dormitories.dormitory;
 
 import com.konstl.dormitories.dormitory.dto.CreateDormitoryRequest;
 import com.konstl.dormitories.dormitory.dto.DormitoryResponse;
+import com.konstl.dormitories.dormitory.dto.DormitorySearchDto;
 import com.konstl.dormitories.dormitory.dto.UpdateDormitoryRequest;
 import com.konstl.dormitories.utils.PageResponse;
 
@@ -11,9 +12,7 @@ public interface DormitoryService {
 
     PageResponse<DormitoryResponse> findAll(int page, int size);
 
-    PageResponse<DormitoryResponse> findByName(String name, int page, int size);
-
-    PageResponse<DormitoryResponse> findByAddress(String address, int page, int size);
+    PageResponse<DormitoryResponse> search(DormitorySearchDto searchDto, int page, int size);
 
     DormitoryResponse create(CreateDormitoryRequest createRequest);
 

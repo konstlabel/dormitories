@@ -2,14 +2,15 @@ package com.konstl.dormitories.dormitory;
 
 import com.konstl.dormitories.dormitory.dto.CreateDormitoryRequest;
 import com.konstl.dormitories.dormitory.dto.DormitoryResponse;
+import com.konstl.dormitories.dormitory.dto.DormitorySearchDto;
 import com.konstl.dormitories.dormitory.dto.UpdateDormitoryRequest;
-import com.konstl.dormitories.employee.dto.EmployeeResponse;
 import com.konstl.dormitories.exception.resource.ResourceNotFoundException;
 import com.konstl.dormitories.utils.PageResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,8 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 public class DormitoryServiceImpl implements DormitoryService {
-
-    private static final String NO_PERM = "You don't have permission to make this operation";
 
     private final DormitoryRepository dormitoryRepository;
     private final DormitoryMapper dormitoryMapper;
@@ -47,19 +46,10 @@ public class DormitoryServiceImpl implements DormitoryService {
     }
 
     @Override
-    public PageResponse<DormitoryResponse> findByName(String name, int page, int size) {
+    public PageResponse<DormitoryResponse> search(DormitorySearchDto dto, int page, int size) {
 
-        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
-        Page<Dormitory> result = dormitoryRepository.findByNameContainingIgnoreCase(name, pageable);
-
-        return buildPageResponse(result);
-    }
-
-    @Override
-    public PageResponse<DormitoryResponse> findByAddress(String address, int page, int size) {
-
-        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
-        Page<Dormitory> result = dormitoryRepository.findByAddressContainingIgnoreCase(address, pageable);
+        Specification<Dormitory> spec = DormitorySpecification.bySearch(dto);
+        Page<Dormitory> result = dormitoryRepository.findAll(spec, PageRequest.of(page, size));
 
         return buildPageResponse(result);
     }

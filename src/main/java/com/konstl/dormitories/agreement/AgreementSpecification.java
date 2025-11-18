@@ -1,41 +1,65 @@
 package com.konstl.dormitories.agreement;
 
 import com.konstl.dormitories.agreement.dto.AgreementSearchDto;
-import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class AgreementSpecification {
 
     public static Specification<Agreement> withSearch(AgreementSearchDto dto) {
-        return (root, query, cb) -> {
-            List<Predicate> predicates = new ArrayList<>();
 
-            if (dto.getMoveInDateFrom() != null) {
-                predicates.add(cb.greaterThanOrEqualTo(root.get("moveInDate"), dto.getMoveInDateFrom()));
-            }
-            if (dto.getMoveInDateTo() != null) {
-                predicates.add(cb.lessThanOrEqualTo(root.get("moveInDate"), dto.getMoveInDateTo()));
-            }
-
-            if (dto.getEvictionDateFrom() != null) {
-                predicates.add(cb.greaterThanOrEqualTo(root.get("evictionDate"), dto.getEvictionDateFrom()));
-            }
-            if (dto.getEvictionDateTo() != null) {
-                predicates.add(cb.lessThanOrEqualTo(root.get("evictionDate"), dto.getEvictionDateTo()));
-            }
-
-            if (dto.getCostMin() != null) {
-                predicates.add(cb.greaterThanOrEqualTo(root.get("cost"), dto.getCostMin()));
-            }
-            if (dto.getCostMax() != null) {
-                predicates.add(cb.lessThanOrEqualTo(root.get("cost"), dto.getCostMax()));
-            }
-
-            query.distinct(true);
-            return cb.and(predicates.toArray(new Predicate[0]));
-        };
+        return Specification.allOf(
+                moveInDateFrom(dto.getMoveInDateFrom()),
+                moveInDateTo(dto.getMoveInDateTo()),
+                evictionDateFrom(dto.getEvictionDateFrom()),
+                evictionDateTo(dto.getEvictionDateTo()),
+                costMin(dto.getCostMin()),
+                costMax(dto.getCostMax())
+        );
     }
+
+    private static Specification<Agreement> moveInDateFrom(LocalDate date) {
+
+        if (date == null) return null;
+        return (root, query, cb) ->
+                cb.greaterThanOrEqualTo(root.get("moveInDate"), date);
+    }
+
+    private static Specification<Agreement> moveInDateTo(LocalDate date) {
+
+        if (date == null) return null;
+        return (root, query, cb) ->
+                cb.lessThanOrEqualTo(root.get("moveInDate"), date);
+    }
+
+    private static  Specification<Agreement> evictionDateFrom(LocalDate date) {
+
+        if (date == null) return null;
+        return (root, queary, cb) ->
+                cb.greaterThanOrEqualTo(root.get("evictionDate"), date);
+    }
+
+    private static  Specification<Agreement> evictionDateTo(LocalDate date) {
+
+        if (date == null) return null;
+        return (root, queary, cb) ->
+                cb.lessThanOrEqualTo(root.get("evictionDate"), date);
+    }
+
+    private static Specification<Agreement> costMin(BigDecimal cost) {
+
+        if (cost == null) return null;
+        return (root, query, cb) ->
+                cb.greaterThanOrEqualTo(root.get("cost"), cost);
+    }
+
+    private static Specification<Agreement> costMax(BigDecimal cost) {
+
+        if (cost == null) return null;
+        return (root, query, cb) ->
+                cb.lessThanOrEqualTo(root.get("cost"), cost);
+    }
+
 }
